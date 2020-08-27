@@ -15,11 +15,11 @@ public class PersistenciaApp {
 	try {	
 		em.getTransaction().begin();
 		
-		//Cliente cliente = new Cliente("Juan","Perez",24577980);
-		//Domicilio domicilio = new Domicilio("San Martin",67);
-		//cliente.setDomicilio(domicilio);
-		//domicilio.setCliente(cliente);
-		//em.persist(cliente);
+		Cliente cliente = new Cliente("Juan","Perez",24577980);
+		Domicilio domicilio = new Domicilio("San Martin",67);
+		cliente.setDomicilio(domicilio);
+		domicilio.setCliente(cliente);
+		em.persist(cliente);
 		
 		//Domicilio dom = new Domicilio("Potrerillos",22,cliente);
 		
