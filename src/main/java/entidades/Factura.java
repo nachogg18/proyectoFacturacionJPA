@@ -1,6 +1,8 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,9 +33,17 @@ public class Factura implements Serializable {
 	@Column(name = "total")
 	private int total;
 	
+	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "fk_cliente")
 	private Cliente cliente;
+	
+	
+	//@OneToMany(cascade = CascadeType.ALL,orphanRemoval=true)
+	//private List<DetalleFactura> detalles = new ArrayList<DetalleFactura>();
+	
+	@OneToMany(mappedBy="factura",cascade = CascadeType.ALL,orphanRemoval=true)
+	private List<DetalleFactura> detalles = new ArrayList<DetalleFactura>();
 	
 	
 	public Factura() {
@@ -44,6 +55,15 @@ public class Factura implements Serializable {
 		this.fecha = fecha;
 		this.numero = numero;
 		this.total = total;
+	}
+		
+
+	public Factura(String fecha, int numero, int total, Cliente cliente) {
+		super();
+		this.fecha = fecha;
+		this.numero = numero;
+		this.total = total;
+		this.cliente = cliente;
 	}
 
 	public String getFecha() {
@@ -68,6 +88,22 @@ public class Factura implements Serializable {
 
 	public void setTotal(int total) {
 		this.total = total;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public List<DetalleFactura> getDetalles() {
+		return detalles;
+	}
+
+	public void setDetalles(List<DetalleFactura> detalles) {
+		this.detalles = detalles;
 	}
 	
 	

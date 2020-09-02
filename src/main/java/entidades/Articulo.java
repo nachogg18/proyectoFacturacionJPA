@@ -1,13 +1,20 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name = "articulo")
@@ -28,7 +35,18 @@ public class Articulo implements Serializable {
 	
 	@Column(name = "precio")
 	private int precio;
+	
+	@OneToMany(mappedBy="articulo",cascade = CascadeType.PERSIST)
+	private List<DetalleFactura> detallesFacturas = new ArrayList<DetalleFactura>();
 
+	
+	@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinTable(
+			name="articulo_categoria",
+			joinColumns=@JoinColumn(name="articulo_id"),
+			inverseJoinColumns = @JoinColumn(name="categoria_id"))
+	private List<Categoria> categorias = new ArrayList<Categoria>();
+	
 	public Articulo() {
 		
 	}
@@ -71,6 +89,23 @@ public class Articulo implements Serializable {
 	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	public List<DetalleFactura> getDetallesFacturas() {
+		return detallesFacturas;
+	}
+
+	public void setDetallesFacturas(List<DetalleFactura> detallesFacturas) {
+		this.detallesFacturas = detallesFacturas;
+	}
+	
 	
 	
 	
