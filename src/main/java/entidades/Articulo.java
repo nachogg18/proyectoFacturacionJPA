@@ -16,8 +16,25 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+
 @Entity
 @Table(name = "articulo")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class Articulo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -28,12 +45,15 @@ public class Articulo implements Serializable {
 	
 	
 	@Column(name = "cantidad")
+	@NonNull
 	private int cantidad;
 	
 	@Column(name = "denominacion")
+	@NonNull
 	private String denominacion;
 	
 	@Column(name = "precio")
+	@NonNull
 	private int precio;
 	
 	@OneToMany(mappedBy="articulo",cascade = CascadeType.PERSIST)
@@ -46,68 +66,6 @@ public class Articulo implements Serializable {
 			joinColumns=@JoinColumn(name="articulo_id"),
 			inverseJoinColumns = @JoinColumn(name="categoria_id"))
 	private List<Categoria> categorias = new ArrayList<Categoria>();
-	
-	public Articulo() {
-		
-	}
-
-	public Articulo(int cantidad, String denominacion, int precio) {
-		super();
-		this.cantidad = cantidad;
-		this.denominacion = denominacion;
-		this.precio = precio;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	public String getDenominacion() {
-		return denominacion;
-	}
-
-	public void setDenominacion(String denominacion) {
-		this.denominacion = denominacion;
-	}
-
-	public int getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(int precio) {
-		this.precio = precio;
-	}
-
-	public List<Categoria> getCategorias() {
-		return categorias;
-	}
-
-	public void setCategorias(List<Categoria> categorias) {
-		this.categorias = categorias;
-	}
-
-	public List<DetalleFactura> getDetallesFacturas() {
-		return detallesFacturas;
-	}
-
-	public void setDetallesFacturas(List<DetalleFactura> detallesFacturas) {
-		this.detallesFacturas = detallesFacturas;
-	}
-	
-	
-	
 	
 	
 
