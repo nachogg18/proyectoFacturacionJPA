@@ -12,10 +12,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode.Exclude;
+
 
 
 @Entity
 @Table(name = "detalle_Factura")
+@Data
+@Builder
 public class DetalleFactura implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -32,67 +38,16 @@ public class DetalleFactura implements Serializable {
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "fk_articulo")
+	@Exclude
+	@lombok.ToString.Exclude
 	private Articulo articulo;
 	
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "fk_factura")
+	@Exclude
+	@lombok.ToString.Exclude
 	private Factura factura;
-	
-	
-	
-	
-	public DetalleFactura() {
-		
-	}
-
-	public DetalleFactura(int cantidad, int subtotal) {
-		super();
-		this.cantidad = cantidad;
-		this.subtotal = subtotal;
-	}
-	
-	
-
-	public DetalleFactura(int cantidad, int subtotal, Articulo articulo, Factura factura) {
-		super();
-		this.cantidad = cantidad;
-		this.subtotal = subtotal;
-		this.articulo = articulo;
-		this.factura = factura;
-	}
-
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	public int getSubtotal() {
-		return subtotal;
-	}
-
-	public void setSubtotal(int subtotal) {
-		this.subtotal = subtotal;
-	}
-
-	public Factura getFactura() {
-		return factura;
-	}
-
-	public void setFactura(Factura factura) {
-		this.factura = factura;
-	}
-
-	public Articulo getArticulo() {
-		return articulo;
-	}
-
-	public void setArticulo(Articulo articulo) {
-		this.articulo = articulo;
-	}
 	
 	
 	

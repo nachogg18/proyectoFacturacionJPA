@@ -12,8 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.Builder;
+import lombok.Builder.Default;
+import lombok.Data;
+
 @Entity
 @Table(name = "categoria")
+@Data
+@Builder
 public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -25,43 +31,8 @@ public class Categoria implements Serializable {
 	private String denominacion;
 	
 	@ManyToMany(mappedBy = "categorias")
+	@Default
 	private List<Articulo> articulos = new ArrayList<Articulo>();
-	
-	public long getId() {
-		return id;
-	}
-	
-	public Categoria() {
-		
-	}
-
-	public Categoria(String denominacion) {
-		super();
-		this.denominacion = denominacion;
-	}
-
-	public String getDenominacion() {
-		return denominacion;
-	}
-
-	public void setDenominacion(String denominacion) {
-		this.denominacion = denominacion;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public List<Articulo> getArticulos() {
-		return articulos;
-	}
-
-	public void setArticulos(List<Articulo> articulos) {
-		this.articulos = articulos;
-	}
-	
-	
-	
 	
 	
 }

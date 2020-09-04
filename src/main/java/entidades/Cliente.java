@@ -13,10 +13,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import lombok.Builder;
+import lombok.Builder.Default;
+import lombok.Data;
+import lombok.EqualsAndHashCode.Exclude;
+
 import javax.persistence.OneToOne;
 
 @Entity
 @Table(name = "cliente")
+@Data
+@Builder
 public class Cliente implements Serializable {
 	/**
 	 * 
@@ -36,74 +44,14 @@ public class Cliente implements Serializable {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="fk_domicilio")
+	
 	private Domicilio domicilio;
 	
 	
 	@OneToMany(mappedBy="cliente")
+	@Default
 	private List<Factura> facturas = new ArrayList<Factura>();
 	
-	public Cliente() {
-	}
-
-	public Cliente(String nombre, String apellido, int dni, Domicilio domicilio) {
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.dni = dni;
-		this.domicilio = domicilio;
-	}
 	
-	public Cliente(String nombre, String apellido, int dni) {
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.dni = dni;
-	}
-	
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public int getDni() {
-		return dni;
-	}
-
-	public void setDni(int dni) {
-		this.dni = dni;
-	}
-
-	public Domicilio getDomicilio() {
-		return domicilio;
-	}
-
-	public void setDomicilio(Domicilio domicilio) {
-		this.domicilio = domicilio;
-	}
-
-	public List<Factura> getFacturas() {
-		return facturas;
-	}
-
-	
-
 	
 }

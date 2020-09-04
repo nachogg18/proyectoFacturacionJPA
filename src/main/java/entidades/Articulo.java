@@ -24,17 +24,23 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Builder.Default;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode.Exclude;
 
 @Entity
 @Table(name = "articulo")
-@Getter
+/*@Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
+*/
+@Data
+@Builder
 public class Articulo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -45,18 +51,18 @@ public class Articulo implements Serializable {
 	
 	
 	@Column(name = "cantidad")
-	@NonNull
 	private int cantidad;
 	
 	@Column(name = "denominacion")
-	@NonNull
 	private String denominacion;
 	
 	@Column(name = "precio")
-	@NonNull
 	private int precio;
 	
 	@OneToMany(mappedBy="articulo",cascade = CascadeType.PERSIST)
+	@Default
+	@Exclude
+	@lombok.ToString.Exclude
 	private List<DetalleFactura> detallesFacturas = new ArrayList<DetalleFactura>();
 
 	
@@ -65,7 +71,13 @@ public class Articulo implements Serializable {
 			name="articulo_categoria",
 			joinColumns=@JoinColumn(name="articulo_id"),
 			inverseJoinColumns = @JoinColumn(name="categoria_id"))
+	@Default
+	@Exclude
+	@lombok.ToString.Exclude
 	private List<Categoria> categorias = new ArrayList<Categoria>();
+	
+	
+	
 	
 	
 

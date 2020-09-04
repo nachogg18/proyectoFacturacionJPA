@@ -18,62 +18,83 @@ public class PersistenciaApp {
 	
 	try {	
 		em.getTransaction().begin();
+		/*
+		Articulo articulo1 = Articulo.builder().cantidad(12).denominacion("picadillo swiss").precio(12).build();
+		Factura factura1 = Factura.builder().numero(11).fecha("3 de septiembre de 2020").build();
+		Categoria conservas = Categoria.builder().denominacion("conservas").build();
+		Cliente cliente1 = Cliente.builder().nombre("Pablo").apellido("Muñoz").dni(7777777).build();
+		Domicilio domicilio = Domicilio.builder().nombreCalle("San Martin").numero(111).build();
+		DetalleFactura detalleFactura = DetalleFactura.builder().articulo(articulo1).cantidad(11).factura(factura1).build();
+		factura1.getDetalles().add(detalleFactura);
+		conservas.getArticulos().add(articulo1);
+		articulo1.getCategorias().add(conservas);
+		cliente1.setDomicilio(domicilio);
+		domicilio.setCliente(cliente1);
+		*/
 		
-		Factura factura1 = new Factura();
-		factura1.setNumero(12);
-		factura1.setFecha("01/09/2020");
 		
-		Domicilio dom = new Domicilio("San Martin",111);
-		Cliente cliente = new Cliente("Pablo","Muñoz",12346634);
-		cliente.setDomicilio(dom);
-		dom.setCliente(cliente);
+		Factura factura1 = Factura.builder().numero(11).fecha("3 de septiembre de 2020").build();
+		Domicilio domicilio = Domicilio.builder().nombreCalle("San Martin").numero(111).build();
+		Cliente cliente1 = Cliente.builder().nombre("Pablo").apellido("Muñoz").dni(7777777).build();
+		Categoria lacteos = Categoria.builder().denominacion("lacteos").build();
+		Categoria perecederos = Categoria.builder().denominacion("perecederos").build();
+		Categoria limpieza = Categoria.builder().denominacion("limpieza").build();
+		Articulo articulo1 = Articulo.builder().cantidad(200).denominacion("Yogurt Ser de sabor frutilla").precio(20).build();
+		Articulo articulo2 = Articulo.builder().cantidad(100).denominacion("Arroz Marolio").precio(30).build();
+		DetalleFactura detalleFactura = DetalleFactura.builder().articulo(articulo1).cantidad(11).factura(factura1).build();
+		DetalleFactura detalleFactura1 = DetalleFactura.builder().articulo(articulo2).cantidad(11).factura(factura1).build();
+
 		
-		factura1.setCliente(cliente);
 		
-		Categoria perecederos = new Categoria("perecederos");
-		Categoria lacteos = new Categoria("lacteos");
-		Categoria limpieza = new Categoria("limpieza");
+		cliente1.setDomicilio(domicilio);
+		domicilio.setCliente(cliente1);
 		
-		Articulo articulo1 = new Articulo(200,"Yogurt Ser de sabor frutilla",20);
-		Articulo articulo2 = new Articulo(300,"Detergente Magistal",70);
+		factura1.setCliente(cliente1);
+
+		
+	
 		
 		articulo1.getCategorias().add(perecederos);
 		articulo1.getCategorias().add(lacteos);
 		lacteos.getArticulos().add(articulo1);
 		perecederos.getArticulos().add(articulo1);
 		
-		articulo2.getCategorias().add(limpieza);
-		limpieza.getArticulos().add(articulo2);
 		
-		DetalleFactura det1 = new DetalleFactura();
-		det1.setArticulo(articulo1);
-		det1.setCantidad(2);
-		det1.setSubtotal(40);
+		detalleFactura.setArticulo(articulo1);
+		detalleFactura.setCantidad(2);
+		detalleFactura.setSubtotal(40);
 		
 		
-		articulo1.getDetallesFacturas().add(det1);
-		factura1.getDetalles().add(det1);
-		det1.setFactura(factura1);
+		articulo1.getDetallesFacturas().add(detalleFactura);
+		factura1.getDetalles().add(detalleFactura);
 		
 		
-		DetalleFactura det2 = new DetalleFactura();
-		det2.setArticulo(articulo2);
-		det2.setCantidad(1);
-		det2.setSubtotal(80);
+
+		detalleFactura1.setSubtotal(80);
 		
 		
-		articulo2.getDetallesFacturas().add(det2);
-		factura1.getDetalles().add(det2);
-		det2.setFactura(factura1);
+		articulo2.getDetallesFacturas().add(detalleFactura1);
+		factura1.getDetalles().add(detalleFactura);
 		
 		
 		factura1.setTotal(120);
 		
 		
 		
-		
+		em.persist(detalleFactura);
+		em.persist(detalleFactura1);
+		em.persist(domicilio);
+		em.persist(cliente1);
+		em.persist(lacteos);
+		em.persist(perecederos);
+		em.persist(limpieza);
 		em.persist(factura1);
+		em.persist(articulo1);
+		em.persist(articulo2);
 		
+		System.out.println(factura1);
+
+
 		em.flush();
 		
 		em.getTransaction().commit();
